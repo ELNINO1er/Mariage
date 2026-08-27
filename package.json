@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma migrate deploy && node prisma/seed-admin.cjs && next build",
+    "build": "prisma generate && prisma migrate deploy && node prisma/seed-admin.cjs && next build --webpack",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",

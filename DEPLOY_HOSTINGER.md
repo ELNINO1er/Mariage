@@ -2,7 +2,7 @@
 
 ## Offre nécessaire
 
-Utiliser une offre Hostinger **Business Web Hosting**, **Cloud** ou un VPS avec prise en charge des applications Node.js. Sélectionner **Node.js 20.x** et le framework **Next.js**.
+Utiliser une offre Hostinger **Business Web Hosting**, **Cloud** ou un VPS avec prise en charge des applications Node.js. Sélectionner **Node.js 24.x** et le framework **Next.js**. Le build force Webpack pour rester compatible avec la version GLIBC de l’environnement Hostinger.
 
 ## Déploiement recommandé
 
