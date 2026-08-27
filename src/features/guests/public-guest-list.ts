@@ -1,0 +1,4 @@
+import "server-only";
+import { connection } from "next/server";
+import { prisma } from "@/lib/prisma";
+export async function getPublicGuestList(slug:string,token:string){await connection();if(slug.length>191||token.length<32||token.length>96)return null;const wedding=await prisma.wedding.findFirst({where:{slug,publicGuestListToken:token,publicGuestListEnabled:true},select:{partnerOne:true,partnerTwo:true,weddingDate:true,city:true,coverImageUrl:true,guests:{select:{id:true,firstName:true,lastName:true,status:true,rsvp:{select:{guestCount:true}}},orderBy:[{status:"asc"},{firstName:"asc"}]}}});if(!wedding)return null;return{...wedding,guests:wedding.guests.map(guest=>({id:guest.id,displayName:`${guest.firstName} ${guest.lastName.slice(0,1).toUpperCase()}.`,status:guest.status,guestCount:guest.status==="CONFIRMED"?(guest.rsvp?.guestCount??1):0}))};}

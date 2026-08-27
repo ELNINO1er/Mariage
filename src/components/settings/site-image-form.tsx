@@ -1,0 +1,7 @@
+"use client";
+import Image from "next/image";
+import { ImagePlus } from "lucide-react";
+import { useActionState } from "react";
+import { uploadSiteImageAction,type SettingsState } from "@/app/dashboard/settings/actions";
+const initial:SettingsState={};
+export function SiteImageForm({kind,label,current}:{kind:"cover"|"partnerOne"|"partnerTwo";label:string;current:string|null}){const bound=uploadSiteImageAction.bind(null,kind);const[state,action,pending]=useActionState(bound,initial);return <form action={action} className="rounded-2xl border border-[var(--beige)] bg-white p-4"><div className={`relative overflow-hidden rounded-xl bg-[var(--ivory)] ${kind==="cover"?"aspect-[16/9]":"aspect-[4/5]"}`}>{current?<Image src={current} alt={label} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover"/>:<div className="grid h-full place-items-center text-[var(--taupe)]"><ImagePlus/></div>}</div><h3 className="mt-4 font-semibold">{label}</h3><input required type="file" name="image" accept="image/jpeg,image/png,image/webp" className="mt-3 block w-full text-xs"/><p className="mt-2 text-xs text-[var(--caramel)]">JPEG, PNG ou WebP · 8 Mo maximum</p>{state.error&&<p className="mt-2 text-xs text-red-700">{state.error}</p>}{state.ok&&<p className="mt-2 text-xs text-emerald-700">Image enregistrée.</p>}<button disabled={pending} className="button-secondary mt-4 w-full">{pending?"Envoi…":"Remplacer l’image"}</button></form>}
