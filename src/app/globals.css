@@ -41,6 +41,28 @@ select option:checked { background:linear-gradient(var(--reference-coral),var(--
 .button-secondary { display:inline-flex; align-items:center; justify-content:center; border:1px solid #ded4d4; border-radius:2px; background:white; padding:.8rem 1.3rem; transition:.2s ease; }
 .button-secondary:hover { border-color:var(--reference-coral); color:var(--reference-coral); }
 
+/* Mouvement éditorial inspiré de la référence mariage, sans dépendance au dossier HTML. */
+.hero-reveal { animation:noces-reveal .9s cubic-bezier(.2,.7,.2,1) both; }
+.hero-reveal-delay { animation-delay:.16s; }
+.floating-heart { position:absolute; z-index:0; color:rgba(227,93,93,.22); animation:noces-float 5s ease-in-out infinite; }
+.floating-heart svg { width:34px; height:34px; fill:currentColor; }
+.floating-heart-delay { animation-delay:-2.4s; transform:scale(.7) rotate(12deg); }
+.curved-section { position:relative; }
+.curved-section::before,.curved-section::after { content:""; position:absolute; left:-5%; width:110%; height:45px; background:var(--ivory); border-radius:0 0 50% 50%; }
+.curved-section::before { top:-1px; transform:translateY(-55%); }
+.curved-section::after { bottom:-1px; transform:translateY(55%) rotate(180deg); }
+.heart-photo { clip-path:polygon(50% 17%,61% 5%,75% 2%,88% 10%,97% 24%,98% 39%,92% 54%,50% 97%,8% 54%,2% 39%,3% 24%,12% 10%,25% 2%,39% 5%); }
+.heart-outline { position:absolute; width:280px; height:250px; border:2px solid rgba(227,93,93,.1); border-radius:50% 50% 45% 45%; transform:rotate(-32deg); animation:noces-float 7s ease-in-out infinite; }
+.heart-outline-small { width:120px; height:105px; animation-delay:-3s; }
+
+@keyframes noces-reveal { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+@keyframes noces-float { 0%,100% { translate:0 0; rotate:0deg; } 50% { translate:0 -14px; rotate:4deg; } }
+
+@media (prefers-reduced-motion:reduce) {
+  .hero-reveal,.floating-heart,.heart-outline { animation:none !important; }
+  * { scroll-behavior:auto !important; }
+}
+
 .admin-shell,.dashboard-shell { background:#fffafa; }
 .admin-shell aside,.dashboard-shell aside { background:#fff; border-color:#f0dfe1; }
 .admin-shell header,.dashboard-shell header { border-color:#f0dfe1; }

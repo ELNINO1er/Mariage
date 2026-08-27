@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowRight, Check, CheckCircle2, Heart, Images, QrCode, Sparkles, Users, UtensilsCrossed } from "lucide-react";
 
 import heroCouple from "../../public/noces-hero-couple.png";
+import receptionDetails from "../../public/noces-reception-details.png";
 
 const features = [
   { icon: Users, title: "Invités & RSVP", description: "Centralisez vos invités, partagez un lien unique et suivez les réponses en temps réel." },
@@ -32,8 +33,10 @@ export default function HomePage() {
         </div>
       </nav>
 
-      <section className="mx-auto grid min-h-[720px] max-w-7xl items-center gap-14 px-5 pb-24 pt-10 lg:grid-cols-[.9fr_1.1fr] lg:px-10">
-        <div className="relative z-10">
+      <section className="relative mx-auto grid min-h-[720px] max-w-7xl items-center gap-14 px-5 pb-24 pt-10 lg:grid-cols-[.9fr_1.1fr] lg:px-10">
+        <div aria-hidden="true" className="floating-heart left-[4%] top-[12%]"><Heart /></div>
+        <div aria-hidden="true" className="floating-heart floating-heart-delay bottom-[14%] left-[46%]"><Heart /></div>
+        <div className="hero-reveal relative z-10">
           <div className="mb-7 inline-flex items-center gap-2 border border-[#e9d4d6] bg-white/75 px-4 py-2 text-xs font-medium text-[var(--caramel)]"><Sparkles size={14} /> Votre mariage, organisé avec élégance</div>
           <h1 className="serif max-w-2xl text-6xl font-medium leading-[.9] tracking-[-.035em] sm:text-7xl lg:text-[6rem]">Un seul espace.<br /><em className="font-normal text-[var(--caramel)]">Tous vos invités.</em><br />Zéro stress.</h1>
           <p className="mt-8 max-w-xl text-base leading-8 text-[color:rgba(52,52,52,.72)] sm:text-lg">Invitations personnalisées, confirmations, tables, QR codes et souvenirs : pilotez chaque détail et offrez à vos proches une expérience inoubliable.</p>
@@ -43,7 +46,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[620px] pb-8 pl-6 sm:pl-12">
+        <div className="hero-reveal hero-reveal-delay relative mx-auto w-full max-w-[620px] pb-8 pl-6 sm:pl-12">
           <div className="absolute -left-2 top-10 h-[88%] w-[88%] bg-[var(--beige)]" />
           <div className="relative aspect-[4/5] overflow-hidden shadow-2xl shadow-[#49372f]/20">
             <Image src={heroCouple} alt="Un couple de jeunes mariés heureux lors de leur réception" fill priority sizes="(max-width: 1024px) 90vw, 48vw" className="object-cover" />
@@ -57,10 +60,31 @@ export default function HomePage() {
 
       <section className="border-y border-[#efdddf] bg-white/70 px-5 py-7 lg:px-10"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-12 gap-y-3 text-center text-sm text-[#766866]"><span className="serif text-2xl text-[var(--brown)]">Tout votre mariage au même endroit</span><span>Invitations digitales</span><span>RSVP en direct</span><span>Plan de table</span><span>Check-in QR</span></div></section>
 
-      <section id="fonctionnalites" className="bg-[var(--brown)] px-5 py-24 text-white lg:px-10">
+      <section id="fonctionnalites" className="curved-section bg-[var(--brown)] px-5 py-28 text-white lg:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-8"><div><p className="eyebrow !text-[#ffabab]">Pensé pour votre sérénité</p><h2 className="serif mt-4 max-w-3xl text-5xl sm:text-6xl">De la première invitation au dernier souvenir.</h2></div><p className="max-w-sm leading-7 text-white/60">Moins de tableaux dispersés, moins de messages perdus. Noces vous donne une vision claire de toute votre organisation.</p></div>
           <div className="mt-14 grid gap-px border border-white/15 bg-white/15 md:grid-cols-2 lg:grid-cols-4">{features.map(({ icon: Icon, title, description }) => <article key={title} className="group bg-[var(--brown)] p-8 transition hover:bg-[#3e3a3a]"><Icon className="text-[#ffabab]" /><h3 className="serif mt-10 text-3xl">{title}</h3><p className="mt-3 text-sm leading-7 text-white/60">{description}</p></article>)}</div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#fff1f2] px-5 py-24 lg:px-10">
+        <div aria-hidden="true" className="heart-outline -left-12 top-10" />
+        <div aria-hidden="true" className="heart-outline heart-outline-small right-10 top-16" />
+        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2">
+          <div className="relative mx-auto w-full max-w-xl pb-12 pr-10">
+            <div className="heart-photo relative aspect-[4/3] overflow-hidden shadow-2xl shadow-[#8f5e5e]/15">
+              <Image src={receptionDetails} alt="Détails élégants d’une réception de mariage" fill sizes="(max-width: 1024px) 90vw, 46vw" className="object-cover transition duration-700 hover:scale-105" />
+            </div>
+            <div className="absolute bottom-0 right-0 max-w-[240px] bg-white p-6 shadow-xl"><Heart className="text-[var(--caramel)]" fill="currentColor" size={20} /><p className="serif mt-3 text-2xl">Chaque détail raconte votre histoire.</p></div>
+          </div>
+          <div>
+            <p className="eyebrow">Une expérience à votre image</p>
+            <h2 className="serif mt-4 text-5xl sm:text-6xl">Bien plus qu’un outil.<br /><em className="font-normal text-[var(--caramel)]">Le début de vos souvenirs.</em></h2>
+            <p className="mt-7 max-w-xl leading-8 text-[#766866]">Vos invités découvrent un mini-site vivant, élégant et personnel. Ils confirment leur présence, retrouvent les informations importantes et partagent leurs plus beaux souvenirs avec vous.</p>
+            <div className="mt-9 grid gap-5 sm:grid-cols-2">
+              {["Une invitation qui vous ressemble", "Des réponses simples sur mobile", "Vos photos réunies au même endroit", "Une expérience privée et sécurisée"].map((item) => <div key={item} className="flex items-start gap-3 border-t border-[#e7c9cc] pt-4 text-sm"><Heart className="mt-0.5 shrink-0 text-[var(--caramel)]" size={15} fill="currentColor" /><span>{item}</span></div>)}
+            </div>
+          </div>
         </div>
       </section>
 
