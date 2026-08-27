@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+// @ts-check
 
 const isDevelopment = process.env.NODE_ENV === "development";
 const contentSecurityPolicy = [
@@ -15,7 +15,8 @@ const contentSecurityPolicy = [
   "frame-ancestors 'none'",
 ].join("; ");
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   poweredByHeader: false,
   typedRoutes: true,
   experimental: { cpus: 1, serverActions: { bodySizeLimit: "9mb" } },
