@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 
-const editorial = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-editorial", weight: ["400", "500", "600", "700"] });
-const sans = Manrope({ subsets: ["latin"], variable: "--font-sans" });
+const editorial = Playfair_Display({ subsets: ["latin"], variable: "--font-editorial", weight: ["400", "500", "600", "700"] });
+const sans = Source_Sans_3({ subsets: ["latin"], variable: "--font-sans", weight: ["300", "400", "500", "600", "700"] });
 
 export const metadata: Metadata = {
   title: "Noces — Vos invités, simplement",

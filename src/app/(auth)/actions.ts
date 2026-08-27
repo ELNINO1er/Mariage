@@ -41,9 +41,10 @@ export async function registerAction(_state: AuthState, formData: FormData): Pro
 }
 
 export async function loginAction(_state: AuthState, formData: FormData): Promise<AuthState> {
+  const email=String(formData.get("email")??"").trim().toLowerCase();
   try {
     await signIn("credentials", {
-      email: formData.get("email"),
+      email,
       password: formData.get("password"),
       redirect: false,
     });
@@ -51,5 +52,6 @@ export async function loginAction(_state: AuthState, formData: FormData): Promis
     if (error instanceof AuthError) return { error: "E-mail ou mot de passe incorrect." };
     throw error;
   }
-  redirect("/dashboard");
+  const account=await prisma.user.findUnique({where:{email},select:{platformRole:true}});
+  redirect(account?.platformRole==="SUPER_ADMIN"?"/admin":"/dashboard");
 }

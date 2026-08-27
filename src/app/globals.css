@@ -1,25 +1,30 @@
 @import "tailwindcss";
 
 :root {
-  --ivory: #f7f3ec;
-  --beige: #e7d9c8;
-  --taupe: #b99d88;
-  --caramel: #9b7258;
-  --brown: #49372f;
-  --gold: #b79a45;
+  --ivory: #fffafa;
+  --beige: #f1d9dc;
+  --taupe: #c89298;
+  --caramel: #e35d5d;
+  --brown: #343434;
+  --gold: #e35d5d;
   --white: #ffffff;
+  --reference-coral: #e35d5d;
+  --reference-blush: #fef1f2;
+  --reference-muted: #777777;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; color: var(--brown); background: var(--ivory); }
+body { margin: 0; color: var(--brown); background: var(--ivory); font-weight:400; }
 a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; }
 select { appearance:none; min-height:46px; border-radius:0 !important; padding-right:2.6rem !important; background-image:linear-gradient(45deg,transparent 50%,var(--caramel) 50%),linear-gradient(135deg,var(--caramel) 50%,transparent 50%); background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%; background-size:5px 5px,5px 5px; background-repeat:no-repeat; outline:none; transition:border-color .2s,box-shadow .2s; }
 select:hover { border-color:var(--taupe); }
 select:focus { border-color:var(--caramel); box-shadow:0 0 0 3px rgba(155,114,88,.12); }
+select option { background:#fff; color:#343434; padding:.7rem 1rem; }
+select option:checked { background:linear-gradient(var(--reference-coral),var(--reference-coral)); color:#fff; }
 .styled-select summary::-webkit-details-marker { display:none; }
-.admin-input { width:100%; border:1px solid var(--beige); border-radius:.85rem; background:white; padding:.8rem 1rem; outline:none; }
+.admin-input { width:100%; border:1px solid var(--beige); border-radius:2px; background:white; padding:.8rem 1rem; outline:none; }
 .admin-input:focus { border-color:var(--caramel); box-shadow:0 0 0 3px rgba(155,114,88,.12); }
 .site-minimal section { border-radius:0 !important; }
 .site-minimal .paper { background-image:none; }
@@ -27,13 +32,46 @@ select:focus { border-color:var(--caramel); box-shadow:0 0 0 3px rgba(155,114,88
 .serif { font-family: var(--font-editorial), Georgia, serif; }
 .paper {
   background-color: var(--ivory);
-  background-image: radial-gradient(rgba(73,55,47,.045) .7px, transparent .7px);
-  background-size: 7px 7px;
+  background-image: linear-gradient(135deg,rgba(227,93,93,.025) 25%,transparent 25%),linear-gradient(315deg,rgba(227,93,93,.025) 25%,transparent 25%);
+  background-size: 28px 28px;
 }
-.eyebrow { letter-spacing: .22em; text-transform: uppercase; font-size: .72rem; font-weight: 700; color: var(--caramel); }
-.button-primary { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; border-radius:999px; background:var(--brown); color:white; padding:.85rem 1.35rem; transition:.2s ease; }
-.button-primary:hover { transform:translateY(-2px); background:#342720; }
-.button-secondary { display:inline-flex; align-items:center; justify-content:center; border:1px solid rgba(73,55,47,.24); border-radius:999px; padding:.8rem 1.3rem; }
+.eyebrow { letter-spacing:.2em; text-transform:uppercase; font-size:.7rem; font-weight:600; color:var(--caramel); }
+.button-primary { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; border:1px solid var(--reference-coral); border-radius:2px; background:var(--reference-coral); color:white; padding:.85rem 1.35rem; font-size:.9rem; font-weight:600; transition:.2s ease; }
+.button-primary:hover { transform:translateY(-2px); background:#ce4d4d; border-color:#ce4d4d; box-shadow:0 8px 20px rgba(227,93,93,.2); }
+.button-secondary { display:inline-flex; align-items:center; justify-content:center; border:1px solid #ded4d4; border-radius:2px; background:white; padding:.8rem 1.3rem; transition:.2s ease; }
+.button-secondary:hover { border-color:var(--reference-coral); color:var(--reference-coral); }
+
+.admin-shell,.dashboard-shell { background:#fffafa; }
+.admin-shell aside,.dashboard-shell aside { background:#fff; border-color:#f0dfe1; }
+.admin-shell header,.dashboard-shell header { border-color:#f0dfe1; }
+.admin-shell main article,.admin-shell main section,.dashboard-shell main article,.dashboard-shell main section { border-radius:3px; }
+.admin-shell main [class*="rounded-2xl"],.dashboard-shell main [class*="rounded-2xl"] { border-radius:3px; }
+.admin-shell table thead,.dashboard-shell table thead { background:var(--reference-blush); }
+.admin-shell table tbody tr:hover,.dashboard-shell table tbody tr:hover { background:#fff7f7; }
+.admin-shell input,.admin-shell textarea,.dashboard-shell input,.dashboard-shell textarea { border-radius:2px; }
+.admin-shell input:focus,.admin-shell textarea:focus,.dashboard-shell input:focus,.dashboard-shell textarea:focus { border-color:var(--reference-coral); box-shadow:0 0 0 3px rgba(227,93,93,.1); outline:none; }
+.styled-select summary { border-radius:2px; }
+.styled-select [role="listbox"] { border-top:2px solid var(--reference-coral); }
+.styled-select [role="option"][aria-selected="true"] { color:var(--reference-coral); background:var(--reference-blush); }
+dialog { border-radius:3px !important; }
+
+/* Adaptation du langage visuel Foxewedding aux mini-sites dynamiques. */
+.site-editorial,.site-cinematic,.site-minimal,.site-classic,.site-split { --site-accent:var(--reference-coral); }
+.site-editorial > section:first-of-type,.site-cinematic > section:first-of-type { background-color:#343434; }
+.site-editorial > section:nth-of-type(2),.site-cinematic > section:nth-of-type(2) { position:relative; background:var(--site-accent) !important; }
+.site-editorial > section:nth-of-type(2)::after,.site-cinematic > section:nth-of-type(2)::after { content:""; position:absolute; right:0; bottom:-1px; left:0; height:42px; background:#fffafa; clip-path:ellipse(58% 48% at 50% 100%); }
+.site-editorial .eyebrow,.site-cinematic .eyebrow,.site-minimal .eyebrow { color:var(--site-accent); }
+.site-editorial footer,.site-cinematic footer,.site-minimal footer { border-top:1px solid var(--beige); }
+.site-editorial input,.site-editorial textarea,.site-cinematic input,.site-cinematic textarea,.site-minimal input,.site-minimal textarea { border-radius:2px !important; }
+.site-classic > section:first-of-type { min-height:78vh; }
+.site-classic h1,.site-classic h2 { letter-spacing:0; }
+.site-split > section:not(:first-of-type) > div { max-width:1100px; }
+.site-split > section:nth-of-type(even) { background:#fff !important; }
+
+@media (max-width:1023px) {
+  .admin-shell aside,.dashboard-shell aside { background:#fff; }
+  .admin-shell main,.dashboard-shell main { padding-top:2rem; }
+}
 
 @media print {
   body { background: white; }

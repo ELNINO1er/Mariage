@@ -31,9 +31,9 @@ export default async function InvitationPage({ params }: Props) {
   const wedding = guest.wedding;
   const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "full", timeStyle: "short", timeZone: "Africa/Abidjan" }).format(wedding.weddingDate);
   const shortDate = new Intl.DateTimeFormat("fr-FR", { day: "2-digit", month: "long", year: "numeric", timeZone: "Africa/Abidjan" }).format(wedding.weddingDate);
-  const accents:Record<string,string>={caramel:"#9b7258",rose:"#a86370",sage:"#70836b",navy:"#34455c",gold:"#b79a45"};
+  const accents:Record<string,string>={coral:"#e35d5d",caramel:"#9b7258",rose:"#a86370",sage:"#70836b",navy:"#34455c",gold:"#b79a45",terracotta:"#b8664b",lavender:"#76658a",emerald:"#285943"};
   const siteStyle={"--site-accent":accents[wedding.accentColor]??accents.caramel} as CSSProperties;
-  const layoutClass=wedding.siteLayout==="minimal"?"site-minimal":wedding.siteLayout==="cinematic"?"site-cinematic":"site-editorial";
+  const layoutClass=`site-${["minimal","cinematic","classic","split"].includes(wedding.siteLayout)?wedding.siteLayout:"editorial"}`;
 
   return <main style={siteStyle} className={`overflow-hidden bg-[#f8f3eb] text-[#49372f] ${layoutClass}`}><OpenTracker token={token}/>
     <section className="relative grid min-h-[92vh] place-items-center overflow-hidden bg-[#49372f] px-5 py-20 text-center text-white">

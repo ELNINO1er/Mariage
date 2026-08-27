@@ -14,9 +14,9 @@ const weddingSchema = z.object({
   weddingDate: z.coerce.date().refine((date) => date > new Date(), "La date doit être dans le futur"),
   city: z.string().trim().min(2).max(100),
   country: z.string().trim().min(2).max(100),
-  theme: z.enum(["editorial", "floral", "minimal"]),
-  accentColor: z.enum(["caramel", "rose", "sage", "navy", "gold"]),
-  siteLayout: z.enum(["editorial", "cinematic", "minimal"]),
+  theme: z.enum(["editorial", "floral", "minimal", "luxury", "tropical", "royal"]),
+  accentColor: z.enum(["coral", "caramel", "rose", "sage", "navy", "gold", "terracotta", "lavender", "emerald"]),
+  siteLayout: z.enum(["editorial", "cinematic", "minimal", "classic", "split"]),
 });
 
 function slugify(value: string) {

@@ -12,7 +12,7 @@ import { getCurrentMembership } from "@/server/auth/authorization";
 
 export type SettingsState={ok?:boolean;error?:string};
 const optional=(max:number)=>z.preprocess(value=>typeof value==="string"&&value.trim()===""?undefined:value,z.string().trim().max(max).optional());
-const settingsSchema=z.object({partnerOne:z.string().trim().min(2).max(80),partnerTwo:z.string().trim().min(2).max(80),weddingDate:z.coerce.date(),rsvpDeadline:z.preprocess(value=>value===""?undefined:value,z.coerce.date().optional()),city:optional(100),country:optional(100),message:optional(3000),dressCode:optional(200),contactPhone:optional(40),theme:z.enum(["editorial","floral","minimal"]),accentColor:z.enum(["caramel","rose","sage","navy","gold"]),siteLayout:z.enum(["editorial","cinematic","minimal"])});
+const settingsSchema=z.object({partnerOne:z.string().trim().min(2).max(80),partnerTwo:z.string().trim().min(2).max(80),weddingDate:z.coerce.date(),rsvpDeadline:z.preprocess(value=>value===""?undefined:value,z.coerce.date().optional()),city:optional(100),country:optional(100),message:optional(3000),dressCode:optional(200),contactPhone:optional(40),theme:z.enum(["editorial","floral","minimal","luxury","tropical","royal"]),accentColor:z.enum(["coral","caramel","rose","sage","navy","gold","terracotta","lavender","emerald"]),siteLayout:z.enum(["editorial","cinematic","minimal","classic","split"])});
 const imageKind=z.enum(["cover","partnerOne","partnerTwo"]);
 
 async function editor(){const membership=await getCurrentMembership();if(!membership)throw new Error("Mariage introuvable");if(!(["OWNER","ADMIN","ORGANIZER"] as string[]).includes(membership.role))throw new Error("Permission insuffisante");return membership;}

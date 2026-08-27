@@ -10,7 +10,7 @@ const config = [
       "@next/next/no-html-link-for-pages": "off",
     },
   },
-  { ignores: [".next/**", "node_modules/**", "coverage/**"] },
+  { ignores: [".next/**", "node_modules/**", "coverage/**", "HTML/**"] },
 ];
 
 export default config;
