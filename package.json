@@ -2,13 +2,18 @@
   "name": "noces",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "prisma generate && prisma migrate deploy && node prisma/seed-admin.cjs && next build --webpack",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "prisma:validate": "prisma validate",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:admin": "node prisma/seed-admin.cjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "check": "npm run typecheck && npm run lint && npm run prisma:validate && npm run test"
