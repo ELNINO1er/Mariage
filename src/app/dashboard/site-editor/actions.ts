@@ -1,0 +1,9 @@
+"use server";
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+import { prisma } from "@/lib/prisma";
+import { getCurrentMembership } from "@/server/auth/authorization";
+export type SiteEditorState={ok?:boolean;error?:string};
+const optional=(max:number)=>z.preprocess(value=>typeof value==="string"&&value.trim()===""?undefined:value,z.string().trim().max(max).optional());
+const schema=z.object({heroEyebrow:optional(180),storyTitle:optional(240),storyText:optional(5000),message:optional(3000),dressCode:optional(200),contactPhone:optional(40),theme:z.enum(["editorial","floral","minimal","luxury","tropical","royal"]),accentColor:z.enum(["coral","caramel","rose","sage","navy","gold","terracotta","lavender","emerald"]),siteLayout:z.enum(["editorial","cinematic","minimal","classic","split"])});
+export async function updateMiniSiteAction(_state:SiteEditorState,formData:FormData):Promise<SiteEditorState>{const parsed=schema.safeParse(Object.fromEntries(formData));if(!parsed.success)return{error:parsed.error.issues[0]?.message??"Informations invalides"};const membership=await getCurrentMembership();if(!membership||!["OWNER","ADMIN","ORGANIZER"].includes(membership.role))return{error:"Permission insuffisante"};const sections={story:formData.get("section_story")==="on",portraits:formData.get("section_portraits")==="on",venues:formData.get("section_venues")==="on",schedule:formData.get("section_schedule")==="on",gallery:formData.get("section_gallery")==="on",guestbook:formData.get("section_guestbook")==="on"};await prisma.wedding.update({where:{id:membership.weddingId},data:{...parsed.data,siteSections:sections}});revalidatePath("/dashboard/site-editor");revalidatePath(`/w/${membership.wedding.slug}`,"layout");return{ok:true};}

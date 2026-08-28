@@ -16,7 +16,7 @@ const settingsSchema=z.object({partnerOne:z.string().trim().min(2).max(80),partn
 const imageKind=z.enum(["cover","partnerOne","partnerTwo"]);
 
 async function editor(){const membership=await getCurrentMembership();if(!membership)throw new Error("Mariage introuvable");if(!(["OWNER","ADMIN","ORGANIZER"] as string[]).includes(membership.role))throw new Error("Permission insuffisante");return membership;}
-function refresh(slug:string){revalidatePath("/dashboard/settings");revalidatePath(`/w/${slug}`,"layout");}
+function refresh(slug:string){revalidatePath("/dashboard/settings");revalidatePath("/dashboard/site-editor");revalidatePath(`/w/${slug}`,"layout");}
 
 export async function updateWeddingSettingsAction(_state:SettingsState,formData:FormData):Promise<SettingsState>{const parsed=settingsSchema.safeParse(Object.fromEntries(formData));if(!parsed.success)return{error:parsed.error.issues[0]?.message??"Informations invalides"};try{const membership=await editor();await prisma.wedding.update({where:{id:membership.weddingId},data:parsed.data});refresh(membership.wedding.slug);return{ok:true};}catch(error){return{error:error instanceof Error?error.message:"Modification impossible"};}}
 

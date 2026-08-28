@@ -36,6 +36,10 @@ export const getPublicInvitation = cache(async (weddingSlug: string, token: stri
               theme: true,
               accentColor: true,
               siteLayout: true,
+              heroEyebrow: true,
+              storyTitle: true,
+              storyText: true,
+              siteSections: true,
               venues: { orderBy: { startsAt: "asc" } },
               schedule: { orderBy: [{ position: "asc" }, { startsAt: "asc" }] },
               galleryPhotos: {

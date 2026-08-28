@@ -75,6 +75,7 @@ model User {
   platformRole PlatformRole    @default(USER)
   status       AccountStatus   @default(ACTIVE)
   memberships  WeddingMember[]
+  supportSessions AdminSupportSession[]
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
 }
@@ -104,6 +105,10 @@ model Wedding {
   dressCode     String?
   contactPhone  String?
   theme         String          @default("editorial")
+  heroEyebrow   String?         @db.VarChar(180)
+  storyTitle    String?         @db.VarChar(240)
+  storyText     String?         @db.Text
+  siteSections  Json?
   members       WeddingMember[]
   venues        Venue[]
   schedule      ScheduleItem[]
@@ -112,8 +117,24 @@ model Wedding {
   tables        WeddingTable[]
   galleryPhotos GalleryPhoto[]
   guestBookEntries GuestBookEntry[]
+  supportSessions AdminSupportSession[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+}
+
+model AdminSupportSession {
+  id        String   @id @default(cuid())
+  adminId   String
+  weddingId String
+  reason    String   @db.VarChar(500)
+  startedAt DateTime @default(now())
+  expiresAt DateTime
+  endedAt   DateTime?
+  admin     User     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  wedding   Wedding  @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+
+  @@index([adminId, expiresAt])
+  @@index([weddingId, startedAt])
 }
 
 model WeddingMember {
