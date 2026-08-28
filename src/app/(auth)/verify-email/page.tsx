@@ -1,0 +1,2 @@
+import { verifyEmailToken } from "../actions";
+export default async function VerifyEmailPage({searchParams}:{searchParams:Promise<{token?:string}>}){const{token}=await searchParams;const ok=token?await verifyEmailToken(token):false;return <div className="w-full max-w-md text-center"><p className="eyebrow">Vérification</p><h1 className="serif mt-3 text-5xl">{ok?"Adresse confirmée":"Lien invalide ou expiré"}</h1><a href="/login" className="button-primary mt-8">Se connecter</a></div>}

@@ -5,7 +5,7 @@ const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https:",
   "media-src 'self' blob:",
   `connect-src 'self'${isDevelopment ? " ws: wss:" : ""}`,
   "font-src 'self' data:",
@@ -20,6 +20,7 @@ const nextConfig = {
   poweredByHeader: false,
   typedRoutes: true,
   experimental: { cpus: 1, serverActions: { bodySizeLimit: "9mb" } },
+  images: { remotePatterns: [{ protocol: "https", hostname: "**" }] },
   async headers() {
     return [{
       source: "/(.*)",

@@ -7,6 +7,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { importedGuestSchema, guestInputSchema, guestUpdateSchema } from "@/features/guests/guest-schema";
 import { getCurrentMembership } from "@/server/auth/authorization";
+import { assertCapacity, limitsFor } from "@/server/billing/plans";
 
 export type GuestActionState = { ok?: boolean; error?: string; imported?: number; skipped?: number };
 
@@ -40,6 +41,7 @@ export async function createGuestAction(_state: GuestActionState, formData: Form
 
   try {
     const wedding = await requireEditableWedding();
+    const currentCount=await prisma.guest.count({where:{weddingId:wedding.id}});assertCapacity("d’invités",currentCount,1,limitsFor(wedding.plan).guests);
     const groupId = await validateGroup(wedding.id, parsed.data.groupId);
     if (parsed.data.email) {
       const duplicate = await prisma.guest.findFirst({ where: { weddingId: wedding.id, email: parsed.data.email }, select: { id: true } });
@@ -117,6 +119,7 @@ export async function importGuestsAction(_state: GuestActionState, formData: For
       keys.forEach((key) => seen.add(key));
       return true;
     });
+    assertCapacity("d’invités",existingGuests.length,accepted.length,limitsFor(wedding.plan).guests);
 
     await prisma.$transaction(accepted.map((guest) => prisma.guest.create({
       data: {

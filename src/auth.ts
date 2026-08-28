@@ -28,10 +28,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
         const user = await prisma.user.findUnique({
           where: { email: parsed.data.email },
-          select: { id: true, firstName: true, lastName: true, email: true, passwordHash: true, status: true },
+          select: { id: true, firstName: true, lastName: true, email: true, passwordHash: true, status: true, emailVerifiedAt: true },
         });
         const passwordMatches = await compare(parsed.data.password, user?.passwordHash ?? DUMMY_PASSWORD_HASH);
-        if (!user || !passwordMatches || user.status !== "ACTIVE") return null;
+        if (!user || !passwordMatches || user.status !== "ACTIVE" || !user.emailVerifiedAt) return null;
 
         return { id: user.id, email: user.email, name: `${user.firstName} ${user.lastName}` };
       },

@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { publicRsvpSchema } from "@/features/rsvp/public-rsvp-schema";
 import { consumeRateLimit } from "@/server/security/rate-limit";
+import { assertCapacity, limitsFor } from "@/server/billing/plans";
 
 export type CollectiveRsvpState={ok?:boolean;error?:string;guestName?:string};
 const secureToken=()=>randomBytes(32).toString("base64url");
@@ -16,9 +17,10 @@ export async function submitCollectiveRsvpAction(_state:CollectiveRsvpState,form
   const contact=parsed.data.email??parsed.data.phone??"anonymous";
   const rate=consumeRateLimit("collective-rsvp",`${parsed.data.token}:${contact}`,3,60*60_000);
   if(!rate.allowed)return{error:`Trop de tentatives. Réessayez dans ${rate.retryAfterSeconds} secondes.`};
-  const wedding=await prisma.wedding.findFirst({where:{slug:parsed.data.weddingSlug,publicRsvpToken:parsed.data.token,publicRsvpEnabled:true,status:"ACTIVE"},select:{id:true,slug:true,rsvpDeadline:true,publicRsvpMaxGuests:true}});
+  const wedding=await prisma.wedding.findFirst({where:{slug:parsed.data.weddingSlug,publicRsvpToken:parsed.data.token,publicRsvpEnabled:true,status:"ACTIVE"},select:{id:true,slug:true,rsvpDeadline:true,publicRsvpMaxGuests:true,plan:true,_count:{select:{guests:true}}}});
   if(!wedding)return{error:"Ce lien RSVP est invalide ou désactivé."};
   if(wedding.rsvpDeadline&&wedding.rsvpDeadline<new Date())return{error:"La date limite de réponse est dépassée."};
+  try{assertCapacity("d’invités",wedding._count.guests,1,limitsFor(wedding.plan).guests)}catch(error){return{error:error instanceof Error?error.message:"Capacité atteinte"}}
   const confirmed=parsed.data.status==="CONFIRMED";
   const guestCount=confirmed?parsed.data.guestCount:0;
   const childrenCount=confirmed?parsed.data.childrenCount:0;

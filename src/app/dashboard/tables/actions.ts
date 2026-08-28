@@ -6,6 +6,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentMembership } from "@/server/auth/authorization";
 import { capacityProjection } from "@/features/tables/capacity";
+import { assertCapacity, limitsFor } from "@/server/billing/plans";
 
 export type TableActionState = { ok?: boolean; error?: string };
 export type AssignmentResult = { ok: boolean; error?: string; requiresConfirmation?: boolean; projected?: number; capacity?: number };
@@ -31,6 +32,7 @@ export async function createTableAction(_state: TableActionState, formData: Form
   if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Table invalide" };
   try {
     const membership = await requireTableEditor();
+    const current=await prisma.weddingTable.count({where:{weddingId:membership.weddingId}});assertCapacity("de tables",current,1,limitsFor(membership.wedding.plan).tables);
     await prisma.weddingTable.create({ data: { weddingId: membership.weddingId, ...parsed.data } });
     revalidatePath("/dashboard/tables");
     return { ok: true };

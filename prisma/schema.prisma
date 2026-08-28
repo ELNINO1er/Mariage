@@ -74,8 +74,11 @@ model User {
   passwordHash String
   platformRole PlatformRole    @default(USER)
   status       AccountStatus   @default(ACTIVE)
+  emailVerifiedAt DateTime?
   memberships  WeddingMember[]
   supportSessions AdminSupportSession[]
+  passwordResetTokens PasswordResetToken[]
+  emailVerificationTokens EmailVerificationToken[]
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
 }
@@ -109,6 +112,12 @@ model Wedding {
   storyTitle    String?         @db.VarChar(240)
   storyText     String?         @db.Text
   siteSections  Json?
+  customAccent  String?         @db.VarChar(9)
+  fontStyle     String           @default("romantic")
+  backgroundStyle String         @default("paper")
+  cornerStyle   String           @default("soft")
+  motionStyle   String           @default("gentle")
+  heroOverlay   Int              @default(35)
   members       WeddingMember[]
   venues        Venue[]
   schedule      ScheduleItem[]
@@ -120,6 +129,28 @@ model Wedding {
   supportSessions AdminSupportSession[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique @db.VarChar(64)
+  expiresAt DateTime
+  usedAt    DateTime?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  @@index([userId, expiresAt])
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique @db.VarChar(64)
+  expiresAt DateTime
+  usedAt    DateTime?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  @@index([userId, expiresAt])
 }
 
 model AdminSupportSession {

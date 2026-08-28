@@ -32,12 +32,12 @@ export default async function InvitationPage({ params }: Props) {
   const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "full", timeStyle: "short", timeZone: "Africa/Abidjan" }).format(wedding.weddingDate);
   const shortDate = new Intl.DateTimeFormat("fr-FR", { day: "2-digit", month: "long", year: "numeric", timeZone: "Africa/Abidjan" }).format(wedding.weddingDate);
   const accents:Record<string,string>={coral:"#e35d5d",caramel:"#9b7258",rose:"#a86370",sage:"#70836b",navy:"#34455c",gold:"#b79a45",terracotta:"#b8664b",lavender:"#76658a",emerald:"#285943"};
-  const siteStyle={"--site-accent":accents[wedding.accentColor]??accents.caramel} as CSSProperties;
+  const siteStyle={"--site-accent":wedding.customAccent??accents[wedding.accentColor]??accents.caramel,"--site-overlay":String(wedding.heroOverlay/100)} as CSSProperties;
   const layoutClass=`site-${["minimal","cinematic","classic","split"].includes(wedding.siteLayout)?wedding.siteLayout:"editorial"}`;
   const configured=wedding.siteSections&&typeof wedding.siteSections==="object"&&!Array.isArray(wedding.siteSections)?wedding.siteSections as Record<string,boolean>:{};
   const visible=(section:string)=>configured[section]!==false;
 
-  return <main style={siteStyle} className={`overflow-hidden bg-[#f8f3eb] text-[#49372f] ${layoutClass}`}><OpenTracker token={token}/>
+  return <main style={siteStyle} className={`overflow-hidden bg-[#f8f3eb] text-[#49372f] ${layoutClass} site-font-${wedding.fontStyle} site-bg-${wedding.backgroundStyle} site-corners-${wedding.cornerStyle} site-motion-${wedding.motionStyle}`}><OpenTracker token={token}/>
     <section className="relative grid min-h-[92vh] place-items-center overflow-hidden bg-[#49372f] px-5 py-20 text-center text-white">
       {wedding.coverImageUrl && <Image src={wedding.coverImageUrl} alt={`${wedding.partnerOne} et ${wedding.partnerTwo}`} fill priority sizes="100vw" className="object-cover opacity-25"/>}
       <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full border border-white/10"/><div className="absolute -bottom-44 -right-24 h-[520px] w-[520px] rounded-full bg-[#b99d88]/15"/><div className="absolute left-[10%] top-24 hidden h-52 w-40 -rotate-6 rounded-t-full border border-white/15 lg:block"/><div className="absolute bottom-20 right-[9%] hidden h-56 w-44 rotate-6 rounded-t-full bg-[#b99d88]/15 lg:block"/>

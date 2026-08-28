@@ -14,11 +14,13 @@
     "prisma:validate": "prisma validate",
     "prisma:deploy": "prisma migrate deploy",
     "prisma:admin": "node prisma/seed-admin.cjs",
+    "media:migrate": "node scripts/migrate-media-to-s3.cjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "check": "npm run typecheck && npm run lint && npm run prisma:validate && npm run test"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1120.0",
     "@prisma/client": "6.19.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/qrcode": "^1.5.6",
