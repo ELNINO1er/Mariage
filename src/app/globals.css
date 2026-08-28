@@ -53,6 +53,10 @@ select option:checked { background:linear-gradient(var(--reference-coral),var(--
 .button-primary:hover { transform:translateY(-2px); background:#ce4d4d; border-color:#ce4d4d; box-shadow:0 8px 20px rgba(227,93,93,.2); }
 .button-secondary { display:inline-flex; align-items:center; justify-content:center; border:1px solid #ded4d4; border-radius:2px; background:white; padding:.8rem 1.3rem; transition:.2s ease; }
 .button-secondary:hover { border-color:var(--reference-coral); color:var(--reference-coral); }
+.landing-cta-button { display:inline-flex; min-width:240px; min-height:62px; align-items:center; justify-content:center; gap:.75rem; border:2px solid #fff; background:#fff; color:#b63f48 !important; padding:1rem 1.8rem; font-size:1rem; font-weight:750; letter-spacing:.01em; box-shadow:0 14px 35px rgba(80,24,28,.24); transition:transform .2s ease,background-color .2s ease,color .2s ease,box-shadow .2s ease; }
+.landing-cta-button:hover { transform:translateY(-4px); background:#342b27; border-color:#342b27; color:#fff !important; box-shadow:0 20px 42px rgba(52,43,39,.32); }
+.landing-cta-button:focus-visible { outline:3px solid #342b27; outline-offset:5px; }
+.landing-cta-button svg { flex:none; stroke:currentColor; }
 
 /* Mouvement éditorial inspiré de la référence mariage, sans dépendance au dossier HTML. */
 .hero-reveal { animation:noces-reveal .9s cubic-bezier(.2,.7,.2,1) both; }
@@ -91,6 +95,34 @@ select option:checked { background:linear-gradient(var(--reference-coral),var(--
 .styled-select [role="listbox"] { border-top:2px solid var(--reference-coral); }
 .styled-select [role="option"][aria-selected="true"] { color:var(--reference-coral); background:var(--reference-blush); }
 dialog { border-radius:3px !important; }
+
+/* Personnalisation cohérente de l’espace de travail privé. */
+.dashboard-shell { --workspace-accent:#e35d5d; --workspace-surface:#fff; --workspace-page:#fffafa; --workspace-text:#343434; --workspace-border:#f0dfe1; color:var(--workspace-text); background:var(--workspace-page); }
+.dashboard-shell.workspace-light { --workspace-page:#f8f9fb; --workspace-surface:#fff; --workspace-text:#27272a; --workspace-border:#e6e7eb; }
+.dashboard-shell.workspace-warm { --workspace-page:#fffafa; --workspace-surface:#fff; --workspace-text:#343434; --workspace-border:#f0dfe1; }
+.dashboard-shell.workspace-night { --workspace-page:#1f1d1c; --workspace-surface:#292624; --workspace-text:#f8f2ed; --workspace-border:#45403c; color-scheme:dark; }
+.dashboard-shell .workspace-sidebar,.dashboard-shell .workspace-header { background:color-mix(in srgb,var(--workspace-surface) 94%,transparent); border-color:var(--workspace-border); }
+.dashboard-shell .workspace-main { background:var(--workspace-page); }
+.dashboard-shell.workspace-bg-paper .workspace-main { background-image:linear-gradient(135deg,color-mix(in srgb,var(--workspace-accent) 4%,transparent) 25%,transparent 25%),linear-gradient(315deg,color-mix(in srgb,var(--workspace-accent) 4%,transparent) 25%,transparent 25%); background-size:30px 30px; }
+.dashboard-shell.workspace-bg-dots .workspace-main { background-image:radial-gradient(color-mix(in srgb,var(--workspace-accent) 16%,transparent) 1px,transparent 1px); background-size:22px 22px; }
+.dashboard-shell .workspace-nav-item.is-active { border-color:var(--workspace-accent); background:color-mix(in srgb,var(--workspace-accent) 10%,var(--workspace-surface)); color:var(--workspace-accent); }
+.dashboard-shell .workspace-nav-item:not(.is-active):hover { border-color:color-mix(in srgb,var(--workspace-accent) 55%,transparent); background:color-mix(in srgb,var(--workspace-accent) 5%,transparent); color:var(--workspace-accent); }
+.dashboard-shell.workspace-density-compact .workspace-nav-item { padding-top:.55rem; padding-bottom:.55rem; font-size:.8rem; }
+.dashboard-shell.workspace-density-compact .workspace-main { padding-top:1.5rem; }
+.dashboard-shell.workspace-cards-flat .workspace-main :is(article,section) { border-color:transparent; box-shadow:none; }
+.dashboard-shell.workspace-cards-outlined .workspace-main :is(article,section) { border-color:var(--workspace-border); box-shadow:none; }
+.dashboard-shell.workspace-cards-elevated .workspace-main :is(article,section) { border-color:transparent; box-shadow:0 12px 34px rgba(52,43,39,.09); }
+.workspace-night .workspace-main :is(article,section,form),.workspace-night .workspace-preview-card { background-color:var(--workspace-surface); color:var(--workspace-text); }
+.workspace-preview { --workspace-accent:#e35d5d; color:#343434; background:#fffafa; }
+.workspace-preview.workspace-light { background:#f3f4f6; }
+.workspace-preview.workspace-warm { background:#fff7f7; }
+.workspace-preview.workspace-night { background:#1f1d1c; color:#f8f2ed; }
+.workspace-preview.workspace-night .workspace-preview-card,.workspace-preview.workspace-night>div>div { background-color:#292624; }
+.workspace-preview.workspace-bg-paper { background-image:linear-gradient(135deg,color-mix(in srgb,var(--workspace-accent) 6%,transparent) 25%,transparent 25%); background-size:24px 24px; }
+.workspace-preview.workspace-bg-dots { background-image:radial-gradient(color-mix(in srgb,var(--workspace-accent) 20%,transparent) 1px,transparent 1px); background-size:16px 16px; }
+.workspace-preview.workspace-cards-flat .workspace-preview-card { border:0; }
+.workspace-preview.workspace-cards-outlined .workspace-preview-card { border:1px solid rgba(120,100,90,.18); }
+.workspace-preview.workspace-cards-elevated .workspace-preview-card { box-shadow:0 8px 20px rgba(52,43,39,.12); }
 
 /* Adaptation du langage visuel Foxewedding aux mini-sites dynamiques. */
 .site-editorial,.site-cinematic,.site-minimal,.site-classic,.site-split { --site-accent:var(--reference-coral); }

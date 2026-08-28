@@ -118,6 +118,7 @@ model Wedding {
   cornerStyle   String           @default("soft")
   motionStyle   String           @default("gentle")
   heroOverlay   Int              @default(35)
+  workspaceSettings Json?
   members       WeddingMember[]
   venues        Venue[]
   schedule      ScheduleItem[]
