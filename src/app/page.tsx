@@ -3,6 +3,9 @@ import { ArrowRight, Check, CheckCircle2, Heart, Images, QrCode, Sparkles, Users
 
 import heroCouple from "../../public/noces-hero-couple.png";
 import receptionDetails from "../../public/noces-reception-details.png";
+import digitalInvitation from "../../public/landing-digital-invitation.webp";
+import guestsCelebration from "../../public/landing-guests-celebration.webp";
+import qrCheckin from "../../public/landing-qr-checkin.webp";
 
 const features = [
   { icon: Users, title: "Invités & RSVP", description: "Centralisez vos invités, partagez un lien unique et suivez les réponses en temps réel." },
@@ -59,6 +62,23 @@ export default function HomePage() {
       </section>
 
       <section className="border-y border-[#efdddf] bg-white/70 px-5 py-7 lg:px-10"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-12 gap-y-3 text-center text-sm text-[#766866]"><span className="serif text-2xl text-[var(--brown)]">Tout votre mariage au même endroit</span><span>Invitations digitales</span><span>RSVP en direct</span><span>Plan de table</span><span>Check-in QR</span></div></section>
+
+      <section className="px-5 py-24 lg:px-10">
+        <div className="mx-auto max-w-7xl"><div className="text-center"><p className="eyebrow">Voyez Noces en action</p><h2 className="serif mx-auto mt-4 max-w-4xl text-5xl sm:text-6xl">Une expérience élégante pour vos invités.<br/><em className="font-normal text-[var(--caramel)]">Une vision claire pour vous.</em></h2><p className="mx-auto mt-6 max-w-2xl leading-7 text-[#766866]">De l’invitation au jour J, chaque écran a été pensé pour réduire votre charge mentale et donner vie à votre univers.</p></div>
+          <div className="mt-14 grid gap-5 lg:grid-cols-12">
+            <article className="product-shot relative min-h-[520px] overflow-hidden bg-[#343434] p-6 text-white lg:col-span-7"><div className="absolute inset-0 opacity-45"><Image src={digitalInvitation} alt="Des mariés découvrant leur invitation numérique" fill sizes="(max-width:1024px) 100vw, 58vw" className="object-cover"/></div><div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"/><div className="relative flex h-full min-h-[470px] items-end"><div><span className="text-xs uppercase tracking-[.25em] text-[#ffb0b0]">01 · Mini-site</span><h3 className="serif mt-3 max-w-xl text-5xl">Une invitation qui donne déjà le ton.</h3><p className="mt-4 max-w-lg text-sm leading-7 text-white/70">Photos, histoire, programme, lieux, dress code et RSVP réunis dans un écrin personnalisé.</p></div></div></article>
+            <div className="grid gap-5 lg:col-span-5">
+              <article className="product-ui bg-white p-5 shadow-xl"><div className="flex items-center justify-between border-b border-[#efdddf] pb-4"><div><p className="text-[10px] uppercase tracking-widest text-[var(--caramel)]">Suivi en direct</p><h3 className="serif mt-1 text-2xl">Réponses RSVP</h3></div><span className="grid h-10 w-10 place-items-center bg-emerald-50 text-sm text-emerald-700">✓</span></div><div className="mt-5 grid grid-cols-3 gap-2">{[["Confirmés","126"],["En attente","18"],["Absents","9"]].map(([label,value])=><div key={label} className="bg-[#fff7f7] p-3"><p className="text-[9px] text-[#8a7a78]">{label}</p><p className="serif mt-2 text-2xl">{value}</p></div>)}</div><div className="mt-4 space-y-2">{["Aminata K.","Jean & Marie","Famille Koné"].map((name,index)=><div key={name} className="flex items-center justify-between border border-[#f0dfe1] p-3 text-xs"><span>{name}</span><span className={index===2?"text-amber-700":"text-emerald-700"}>{index===2?"En attente":"Confirmé"}</span></div>)}</div></article>
+              <article className="relative min-h-[235px] overflow-hidden"><Image src={guestsCelebration} alt="Des invités célébrant ensemble" fill sizes="(max-width:1024px) 100vw, 42vw" className="object-cover transition duration-700 hover:scale-105"/><div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"/><p className="serif absolute bottom-5 left-5 text-3xl text-white">Vos proches au cœur de la fête.</p></article>
+            </div>
+          </div>
+          <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <article className="product-ui bg-[#343434] p-6 text-white"><p className="text-[10px] uppercase tracking-widest text-[#ffabab]">Plan de table</p><h3 className="serif mt-2 text-3xl">Chaque place compte</h3><div className="mt-6 grid grid-cols-2 gap-3">{["Table des mariés","Famille","Amis","Collègues"].map((table,index)=><div key={table} className="border border-white/15 p-4"><span className="grid h-8 w-8 place-items-center rounded-full bg-[#e35d5d] text-xs">{index+1}</span><p className="mt-3 text-xs">{table}</p><div className="mt-2 h-1 bg-white/10"><div className="h-full bg-[#ffabab]" style={{width:`${65+index*8}%`}}/></div></div>)}</div></article>
+            <article className="relative min-h-[370px] overflow-hidden"><Image src={qrCheckin} alt="Accueil d’un invité grâce à son QR code" fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover"/><div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"/><div className="absolute bottom-6 left-6 text-white"><p className="text-[10px] uppercase tracking-widest text-[#ffb0b0]">QR & check-in</p><h3 className="serif mt-2 text-3xl">Un accueil fluide</h3></div></article>
+            <article className="product-ui bg-white p-6"><p className="text-[10px] uppercase tracking-widest text-[var(--caramel)]">Liens & partage</p><h3 className="serif mt-2 text-3xl">Partagez. Les réponses arrivent.</h3><p className="mt-3 text-sm leading-6 text-[#766866]">Un lien collectif permet à chaque proche de s’inscrire et d’apparaître automatiquement dans votre tableau.</p><div className="mt-7 space-y-3">{["Mini-site personnel","RSVP collectif","Liste des présences"].map((label,index)=><div key={label} className="flex items-center gap-3 border border-[#efdddf] p-3 text-xs"><span className={`h-2 w-2 rounded-full ${index===1?"bg-emerald-500":"bg-[var(--caramel)]"}`}/><span>{label}</span><span className="ml-auto text-[var(--caramel)]">Copier →</span></div>)}</div></article>
+          </div>
+        </div>
+      </section>
 
       <section id="fonctionnalites" className="curved-section bg-[var(--brown)] px-5 py-28 text-white lg:px-10">
         <div className="mx-auto max-w-7xl">

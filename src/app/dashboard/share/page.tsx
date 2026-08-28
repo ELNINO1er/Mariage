@@ -1,0 +1,10 @@
+import { ExternalLink, Globe2, Link2 } from "lucide-react";
+import { CollectiveRsvpSettings } from "@/components/settings/collective-rsvp-settings";
+import { PublicListSettings } from "@/components/settings/public-list-settings";
+import { getCurrentMembership } from "@/server/auth/authorization";
+
+export default async function SharePage(){const membership=await getCurrentMembership();if(!membership)return null;const wedding=membership.wedding;const rsvpPath=wedding.publicRsvpToken?`/w/${wedding.slug}/rsvp/${wedding.publicRsvpToken}`:null;const listPath=wedding.publicGuestListToken?`/w/${wedding.slug}/guests/${wedding.publicGuestListToken}`:null;return <div className="mx-auto max-w-7xl"><p className="eyebrow">Diffusion</p><h1 className="serif mt-2 text-5xl">Liens & partage</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--caramel)]">Retrouvez ici tous les liens publics du mariage. Vous gardez le contrôle : chaque accès peut être désactivé ou régénéré.</p><div className="mt-8 space-y-6">
+  <section className="border border-[var(--beige)] bg-white p-6"><div className="flex flex-wrap items-start justify-between gap-5"><div><div className="flex items-center gap-2"><Globe2 size={20}/><h2 className="serif text-3xl">Mini-site d’invitation</h2></div><p className="mt-3 max-w-2xl text-sm text-[var(--caramel)]">Les invitations personnelles sont créées depuis la liste des invités. Chaque personne reçoit son propre lien sécurisé et modifiable.</p></div><a href="/dashboard/guests" className="button-primary"><Link2 size={16}/>Voir les invitations</a></div><div className="mt-5 flex items-center gap-2 bg-[var(--ivory)] p-4 text-xs"><ExternalLink size={15}/><span>Les liens personnels se trouvent dans la colonne « Invitation » et dans le bloc de copie rapide.</span></div></section>
+  <CollectiveRsvpSettings enabled={wedding.publicRsvpEnabled} path={rsvpPath} maxGuests={wedding.publicRsvpMaxGuests}/>
+  <PublicListSettings enabled={wedding.publicGuestListEnabled} path={listPath}/>
+</div></div>}

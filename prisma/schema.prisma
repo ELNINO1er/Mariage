@@ -93,6 +93,9 @@ model Wedding {
   partnerTwoImageUrl String?
   publicGuestListEnabled Boolean @default(false)
   publicGuestListToken String?    @unique @db.VarChar(96)
+  publicRsvpEnabled Boolean       @default(false)
+  publicRsvpToken String?         @unique @db.VarChar(96)
+  publicRsvpMaxGuests Int         @default(6)
   status        WeddingStatus   @default(ACTIVE)
   plan          SubscriptionPlan @default(FREE)
   accentColor   String          @default("caramel")

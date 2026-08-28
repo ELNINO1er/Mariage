@@ -54,6 +54,8 @@ select option:checked { background:linear-gradient(var(--reference-coral),var(--
 .heart-photo { clip-path:polygon(50% 17%,61% 5%,75% 2%,88% 10%,97% 24%,98% 39%,92% 54%,50% 97%,8% 54%,2% 39%,3% 24%,12% 10%,25% 2%,39% 5%); }
 .heart-outline { position:absolute; width:280px; height:250px; border:2px solid rgba(227,93,93,.1); border-radius:50% 50% 45% 45%; transform:rotate(-32deg); animation:noces-float 7s ease-in-out infinite; }
 .heart-outline-small { width:120px; height:105px; animation-delay:-3s; }
+.product-shot,.product-ui { border:1px solid rgba(227,93,93,.13); transition:transform .35s ease,box-shadow .35s ease; }
+.product-shot:hover,.product-ui:hover { transform:translateY(-5px); box-shadow:0 24px 60px rgba(52,52,52,.12); }
 
 @keyframes noces-reveal { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
 @keyframes noces-float { 0%,100% { translate:0 0; rotate:0deg; } 50% { translate:0 -14px; rotate:4deg; } }
